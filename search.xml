@@ -1,6 +1,1195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Mybatis03</title>
+    <url>/2022/05/19/Mybatis/</url>
+    <content><![CDATA[
+        <h3 id="第一章-初识Mybatis">
+          <a href="#第一章-初识Mybatis" class="heading-link"><i class="fas fa-link"></i></a><a href="#第一章-初识Mybatis" class="headerlink" title="第一章 初识Mybatis"></a>第一章 初识Mybatis</h3>
+      
+        <h4 id="1-1-框架概述">
+          <a href="#1-1-框架概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-1-框架概述" class="headerlink" title="1.1 框架概述"></a>1.1 框架概述</h4>
+      <ul>
+<li>
+        <h4 id="生活中“框架”">
+          <a href="#生活中“框架”" class="heading-link"><i class="fas fa-link"></i></a><a href="#生活中“框架”" class="headerlink" title="生活中“框架”"></a>生活中“框架”</h4>
+      <ul>
+<li>买房子</li>
+<li>笔记本电脑</li>
+</ul>
+</li>
+<li><p>程序中框架【代码半成品】</p>
+<ul>
+<li>Mybatis框架：持久化层框架【dao层】</li>
+<li>SpringMVC框架：控制层框架【Servlet层】</li>
+<li>Spring框架：全能…</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="1-2-Mybatis简介">
+          <a href="#1-2-Mybatis简介" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-2-Mybatis简介" class="headerlink" title="1.2 Mybatis简介"></a>1.2 Mybatis简介</h4>
+      <ul>
+<li><p>Mybatis是一个<strong>半自动化</strong>持久化层<strong>ORM</strong>框架</p>
+</li>
+<li><p>ORM：Object Relational Mapping【对象  关系  映射】</p>
+<ul>
+<li>将Java中的<strong>对象</strong>与数据库中<strong>表</strong>建议<strong>映射关系</strong>，优势：操作Java中的对象，就可以影响数据库中表的数据</li>
+</ul>
+</li>
+<li><p>Mybatis与Hibernate对比</p>
+<ul>
+<li>Mybatis是一个半自动化【需要手写SQL】</li>
+<li>Hibernate是全自动化【无需手写SQL】</li>
+</ul>
+</li>
+<li><p>Mybatis与JDBC对比</p>
+<ul>
+<li>JDBC中的SQL与Java代码耦合度高</li>
+<li>Mybatis将SQL与Java代码解耦</li>
+</ul>
+</li>
+<li><p>Java POJO（Plain Old Java Objects，普通老式 Java 对象）</p>
+<ul>
+<li>JavaBean  等同于  POJO</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="1-3-官网地址">
+          <a href="#1-3-官网地址" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-3-官网地址" class="headerlink" title="1.3 官网地址"></a>1.3 官网地址</h4>
+      <ul>
+<li>文档地址：<span class="exturl"><a class="exturl__link" href="https://mybatis.org/mybatis-3/">https://mybatis.org/mybatis-3/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>源码地址：<span class="exturl"><a class="exturl__link" href="https://github.com/mybatis/mybatis-3">https://github.com/mybatis/mybatis-3</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+</ul>
+
+        <h3 id="第二章-搭建Mybatis框架">
+          <a href="#第二章-搭建Mybatis框架" class="heading-link"><i class="fas fa-link"></i></a><a href="#第二章-搭建Mybatis框架" class="headerlink" title="第二章 搭建Mybatis框架"></a>第二章 搭建Mybatis框架</h3>
+      <blockquote>
+<p>导入jar包</p>
+<p>编写配置文件</p>
+<p>使用核心类库</p>
+</blockquote>
+
+        <h4 id="2-1-准备">
+          <a href="#2-1-准备" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-1-准备" class="headerlink" title="2.1 准备"></a>2.1 准备</h4>
+      <ul>
+<li>建库建表建约束</li>
+<li>准备maven工程</li>
+</ul>
+
+        <h4 id="2-2-搭建Mybatis框架步骤">
+          <a href="#2-2-搭建Mybatis框架步骤" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-2-搭建Mybatis框架步骤" class="headerlink" title="2.2 搭建Mybatis框架步骤"></a>2.2 搭建Mybatis框架步骤</h4>
+      <ol>
+<li><p>导入jar包</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--导入MySQL的驱动包--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.1.37<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.26<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--导入MyBatis的jar包--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.5.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--junit--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>编写<strong>核心配置文件</strong>【mybatis-config.xml】</p>
+<ul>
+<li><p>位置：resources目标下</p>
+</li>
+<li><p>名称：推荐使用mybatis-config.xml</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">configuration</span></span></span><br><span class="line"><span class="meta">        <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Config 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">&quot;development&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;development&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                mysql8版本--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/db220106?serverTimezone=UTC&quot;/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                mysql5版本--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jdbc:mysql://localhost:3306/db220106&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;root&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--    设置映射文件路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper/EmployeeMapper.xml&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+<li><p>书写相关接口及<strong>映射文件</strong></p>
+<ul>
+<li><p>映射文件位置：resources&#x2F;mapper</p>
+</li>
+<li><p>映射文件名称：XXXMapper.xml</p>
+</li>
+<li><p><strong>映射文件作用：主要作用为Mapper接口书写Sql语句</strong></p>
+<ul>
+<li>映射文件名与接口名一致</li>
+<li>映射文件namespace与接口全类名一致</li>
+<li>映射文件SQL的Id与接口的方法名一致</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.atguigu.mybatis.mapper.EmployeeMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpById&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.atguigu.mybatis.pojo.Employee&quot;</span>&gt;</span></span><br><span class="line">        SELECT</span><br><span class="line">            id,</span><br><span class="line">            last_name,</span><br><span class="line">            email,</span><br><span class="line">            salary</span><br><span class="line">        FROM</span><br><span class="line">            tbl_employee</span><br><span class="line">        WHERE</span><br><span class="line">            id=#&#123;empId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+<li><p>测试【SqlSession】</p>
+<ul>
+<li>先获取SqlSessionFactory对象</li>
+<li>再获取SqlSession对象</li>
+<li>通过SqlSession对象获取XXXMapper代理对象</li>
+<li>测试</li>
+</ul>
+</li>
+</ol>
+
+        <h4 id="2-3-添加Log4j日志框架">
+          <a href="#2-3-添加Log4j日志框架" class="heading-link"><i class="fas fa-link"></i></a><a href="#2-3-添加Log4j日志框架" class="headerlink" title="2.3 添加Log4j日志框架"></a>2.3 添加Log4j日志框架</h4>
+      <ul>
+<li><p>导入jar包</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- log4j --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>log4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>编写配置文件</p>
+<ul>
+<li><p>配置文件名称：log4j.xml</p>
+</li>
+<li><p>配置文件位置：resources</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">log4j</span>:configuration <span class="keyword">SYSTEM</span> <span class="string">&quot;log4j.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">log4j:configuration</span> <span class="attr">xmlns:log4j</span>=<span class="string">&quot;http://jakarta.apache.org/log4j/&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">appender</span> <span class="attr">name</span>=<span class="string">&quot;STDOUT&quot;</span> <span class="attr">class</span>=<span class="string">&quot;org.apache.log4j.ConsoleAppender&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;Encoding&quot;</span> <span class="attr">value</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">layout</span> <span class="attr">class</span>=<span class="string">&quot;org.apache.log4j.PatternLayout&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">param</span> <span class="attr">name</span>=<span class="string">&quot;ConversionPattern&quot;</span> <span class="attr">value</span>=<span class="string">&quot;%-5p %d&#123;MM-dd HH:mm:ss,SSS&#125; %m  (%F:%L) \n&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">layout</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appender</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;java.sql&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">&quot;debug&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">logger</span> <span class="attr">name</span>=<span class="string">&quot;org.apache.ibatis&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">&quot;info&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">logger</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">root</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">level</span> <span class="attr">value</span>=<span class="string">&quot;debug&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">appender-ref</span> <span class="attr">ref</span>=<span class="string">&quot;STDOUT&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">root</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">log4j:configuration</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="第三章-Mybatis核心配置详解【mybatis-config-xml】">
+          <a href="#第三章-Mybatis核心配置详解【mybatis-config-xml】" class="heading-link"><i class="fas fa-link"></i></a><a href="#第三章-Mybatis核心配置详解【mybatis-config-xml】" class="headerlink" title="第三章 Mybatis核心配置详解【mybatis-config.xml】"></a>第三章 Mybatis核心配置详解【mybatis-config.xml】</h3>
+      
+        <h4 id="3-1-核心配置文件概述">
+          <a href="#3-1-核心配置文件概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-1-核心配置文件概述" class="headerlink" title="3.1 核心配置文件概述"></a>3.1 核心配置文件概述</h4>
+      <ul>
+<li>MyBatis 的配置文件包含了会深深影响 MyBatis 行为的设置和属性信息。</li>
+</ul>
+
+        <h4 id="3-2-核心配置文件根标签">
+          <a href="#3-2-核心配置文件根标签" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-2-核心配置文件根标签" class="headerlink" title="3.2 核心配置文件根标签"></a>3.2 核心配置文件根标签</h4>
+      <ul>
+<li>没有实际语义，主要作用：所有子标签均需要设置在跟标签内部</li>
+</ul>
+
+        <h4 id="3-3-核心配置文件常用子标签">
+          <a href="#3-3-核心配置文件常用子标签" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-3-核心配置文件常用子标签" class="headerlink" title="3.3 核心配置文件常用子标签"></a>3.3 核心配置文件常用子标签</h4>
+      <ul>
+<li><p>properties子标签</p>
+<ul>
+<li><p>作用：定义或引入外部属性文件</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight properties"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">#key=value</span></span><br><span class="line"><span class="attr">db.driver</span>=<span class="string">com.mysql.jdbc.Driver</span></span><br><span class="line"><span class="attr">db.url</span>=<span class="string">jdbc:mysql://localhost:3306/db220106</span></span><br><span class="line"><span class="attr">db.username</span>=<span class="string">root</span></span><br><span class="line"><span class="attr">db.password</span>=<span class="string">root</span></span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span> <span class="attr">resource</span>=<span class="string">&quot;db.properties&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">&quot;development&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;development&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                mysql8版本--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/db220106?serverTimezone=UTC&quot;/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                mysql5版本--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.driver&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.url&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.username&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.password&#125;&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+<li><p>settings子标签</p>
+<ul>
+<li><p>作用：这是 MyBatis 中极为重要的调整设置，它们会改变 MyBatis 的运行时行为。 </p>
+</li>
+<li><p><strong>mapUnderscoreToCamelCase</strong>属性：是否开启驼峰命名自动映射，默认值false，如设置true会自动将</p>
+<p>字段a_col与aCol属性自动映射</p>
+<ul>
+<li><strong>注意：只能将字母相同的字段与属性自动映射</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>类型别名（typeAliases）</p>
+<ul>
+<li><p>作用：类型别名可为 Java 类型设置一个缩写名字。</p>
+</li>
+<li><p>语法及特点</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">typeAliases</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        为指定类型定义别名--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;typeAlias type=&quot;com.atguigu.mybatis.pojo.Employee&quot; alias=&quot;employee&quot;&gt;&lt;/typeAlias&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        为指定包下所有的类定义别名</span></span><br><span class="line"><span class="comment">                默认将类名作为别名，不区分大小写【推荐使用小写字母】</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">package</span> <span class="attr">name</span>=<span class="string">&quot;com.atguigu.mybatis.pojo&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">typeAliases</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>Mybatis自定义别名</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>别名</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>_int</td>
+<td>int</td>
+</tr>
+<tr>
+<td>integer或int</td>
+<td>Integer</td>
+</tr>
+<tr>
+<td>string</td>
+<td>String</td>
+</tr>
+<tr>
+<td>list或arraylist</td>
+<td>ArrayList</td>
+</tr>
+<tr>
+<td>map或hashmap</td>
+<td>HashMap</td>
+</tr>
+</tbody></table></div>
+</li>
+</ul>
+</li>
+<li><p>环境配置（environments）</p>
+<ul>
+<li><p>作用：设置数据库连接环境</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    设置数据库连接环境--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">environments</span> <span class="attr">default</span>=<span class="string">&quot;development&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">environment</span> <span class="attr">id</span>=<span class="string">&quot;development&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">transactionManager</span> <span class="attr">type</span>=<span class="string">&quot;JDBC&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">dataSource</span> <span class="attr">type</span>=<span class="string">&quot;POOLED&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                mysql8版本--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;property name=&quot;driver&quot; value=&quot;com.mysql.cj.jdbc.Driver&quot;/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost:3306/db220106?serverTimezone=UTC&quot;/&gt;--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--                mysql5版本--&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;driver&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.driver&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;url&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.url&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;username&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.username&#125;&quot;</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">&quot;password&quot;</span> <span class="attr">value</span>=<span class="string">&quot;$&#123;db.password&#125;&quot;</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">dataSource</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">environment</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">environments</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+<li><p>mappers子标签</p>
+<ul>
+<li><p>作用：设置映射文件路径</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    设置映射文件路径--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mappers</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mapper</span> <span class="attr">resource</span>=<span class="string">&quot;mapper/EmployeeMapper.xml&quot;</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 要求：接口的包名与映射文件的包名需要一致--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--        &lt;package name=&quot;com.atguigu.mybatis.mapper&quot;/&gt;--&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mappers</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+<li><p>注意：核心配置中的子标签，是有顺序要求的。</p>
+<p>第四章 Mybatis映射文件详解</p>
+<p><img src="/2022/05/19/Mybatis/image-20220321153852708.png" alt="image-20220321153852708"></p>
+</li>
+</ul>
+
+        <h4 id="4-1-映射文件概述">
+          <a href="#4-1-映射文件概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-1-映射文件概述" class="headerlink" title="4.1 映射文件概述"></a>4.1 映射文件概述</h4>
+      <ul>
+<li>MyBatis 的真正强大在于它的语句映射，这是它的魔力所在。</li>
+<li>如果拿它跟具有相同功能的 JDBC 代码进行对比，你会立即发现省掉了将近 <strong>95%</strong> 的代码。</li>
+</ul>
+
+        <h4 id="4-2-映射文件根标签">
+          <a href="#4-2-映射文件根标签" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-2-映射文件根标签" class="headerlink" title="4.2 映射文件根标签"></a>4.2 映射文件根标签</h4>
+      <ul>
+<li>mapper标签</li>
+<li>mapper中的namespace要求与接口的全类名一致</li>
+</ul>
+
+        <h4 id="4-3-映射文件子标签">
+          <a href="#4-3-映射文件子标签" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-3-映射文件子标签" class="headerlink" title="4.3 映射文件子标签"></a>4.3 映射文件子标签</h4>
+      <blockquote>
+<p>子标签共有9个，注意学习其中8大子标签</p>
+</blockquote>
+<ul>
+<li>insert标签：定义添加SQL</li>
+<li>delete标签：定义删除SQL</li>
+<li>update标签：定义修改SQL</li>
+<li>select标签：定义查询SQL</li>
+<li>sql标签：定义可重用的SQL语句块</li>
+<li>cache标签：设置当前命名空间的缓存配置</li>
+<li>cache-ref标签：设置其他命名空间的缓存配置</li>
+<li><strong>resultMap标签：</strong>描述如何从数据库结果集中加载对象<ul>
+<li>resultType解决不了的问题，交个resultMap。</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="4-4-映射文件中常用属性">
+          <a href="#4-4-映射文件中常用属性" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-4-映射文件中常用属性" class="headerlink" title="4.4 映射文件中常用属性"></a>4.4 映射文件中常用属性</h4>
+      <ul>
+<li>resultType：设置期望结果集返回类型【全类名或别名】<ul>
+<li>注意：如果返回的是集合，那应该设置为<strong>集合包含的类型</strong>，而不是集合本身的类型。 </li>
+<li>resultType 和 resultMap 之间只能同时使用一个。</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="day03">
+          <a href="#day03" class="heading-link"><i class="fas fa-link"></i></a><a href="#day03" class="headerlink" title="day03"></a>day03</h3>
+      
+        <h4 id="4-5-获取主键自增数据">
+          <a href="#4-5-获取主键自增数据" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-5-获取主键自增数据" class="headerlink" title="4.5 获取主键自增数据"></a>4.5 获取主键自增数据</h4>
+      <ul>
+<li>useGeneratedKeys：启用主键生成策略</li>
+<li>keyProperty：设置存储属性值</li>
+</ul>
+
+        <h4 id="4-6-获取数据库受影响行数">
+          <a href="#4-6-获取数据库受影响行数" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-6-获取数据库受影响行数" class="headerlink" title="4.6 获取数据库受影响行数"></a>4.6 获取数据库受影响行数</h4>
+      <ul>
+<li>直接将接口中方法的返回值设置为int或boolean即可<ul>
+<li>int：代表受影响行数</li>
+<li>boolean<ul>
+<li>true：表示对数据库有影响</li>
+<li>false：表示对数据库无影响</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="第五章-Mybatis中参数传递问题">
+          <a href="#第五章-Mybatis中参数传递问题" class="heading-link"><i class="fas fa-link"></i></a><a href="#第五章-Mybatis中参数传递问题" class="headerlink" title="第五章 Mybatis中参数传递问题"></a>第五章 Mybatis中参数传递问题</h3>
+      
+        <h4 id="5-1-单个普通参数">
+          <a href="#5-1-单个普通参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-1-单个普通参数" class="headerlink" title="5.1 单个普通参数"></a>5.1 单个普通参数</h4>
+      <ul>
+<li>可以任意使用：参数数据类型、参数名称不用考虑</li>
+</ul>
+
+        <h4 id="5-2-多个普通参数">
+          <a href="#5-2-多个普通参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-2-多个普通参数" class="headerlink" title="5.2 多个普通参数"></a>5.2 多个普通参数</h4>
+      <ul>
+<li>Mybatis底层封装Map结构，封装key为param1、param2….【支持：arg0、arg1、…】</li>
+</ul>
+
+        <h4 id="5-3-命名参数">
+          <a href="#5-3-命名参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-3-命名参数" class="headerlink" title="5.3 命名参数"></a>5.3 命名参数</h4>
+      <ul>
+<li><p>语法：</p>
+<ul>
+<li>@Param(value&#x3D;”参数名”)</li>
+<li>@Param(“参数名”)</li>
+</ul>
+</li>
+<li><p>位置：参数前面</p>
+</li>
+<li><p>注意：</p>
+<ul>
+<li>底层封装Map结构</li>
+<li>命名参数，依然支持参数【param1,param2,…】</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过员工姓名及薪资查询员工信息【命名参数】</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title function_">selectEmpByNamed</span><span class="params">(<span class="meta">@Param(&quot;lName&quot;)</span>String lastName,</span></span><br><span class="line"><span class="params">                                       <span class="meta">@Param(&quot;salary&quot;)</span> <span class="type">double</span> salary)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByNamed&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    FROM</span><br><span class="line">        tbl_employee</span><br><span class="line">    WHERE</span><br><span class="line">        last_name=#&#123;param1&#125;</span><br><span class="line">    AND</span><br><span class="line">        salary=#&#123;param2&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>源码分析</p>
+<ul>
+<li><p>MapperMethod对象：142行代码【命名参数底层代码入口】</p>
+</li>
+<li><p><strong>命名参数底层封装map为ParamMap，ParamMap继承HashMap</strong></p>
+</li>
+<li><p>ParamNameResolver对象：130行代码，命名参数底层实现逻辑</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">//130行</span></span><br><span class="line"><span class="keyword">final</span> Map&lt;String, Object&gt; param = <span class="keyword">new</span> <span class="title class_">ParamMap</span>&lt;&gt;();</span><br><span class="line"><span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;Integer, String&gt; entry : names.entrySet()) &#123;</span><br><span class="line">  param.put(entry.getValue(), args[entry.getKey()]);</span><br><span class="line">  <span class="comment">// add generic param names (param1, param2, ...)</span></span><br><span class="line">  <span class="keyword">final</span> <span class="type">String</span> <span class="variable">genericParamName</span> <span class="operator">=</span> GENERIC_NAME_PREFIX + (i + <span class="number">1</span>);</span><br><span class="line">  <span class="comment">// ensure not to overwrite parameter named with @Param</span></span><br><span class="line">  <span class="keyword">if</span> (!names.containsValue(genericParamName)) &#123;</span><br><span class="line">    param.put(genericParamName, args[entry.getKey()]);</span><br><span class="line">  &#125;</span><br><span class="line">  i++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> param;</span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="5-4-POJO参数">
+          <a href="#5-4-POJO参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-4-POJO参数" class="headerlink" title="5.4 POJO参数"></a>5.4 POJO参数</h4>
+      <ul>
+<li>Mybatis支持POJO【JavaBean】入参，参数key是POJO中属性</li>
+</ul>
+
+        <h4 id="5-5-Map参数">
+          <a href="#5-5-Map参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-5-Map参数" class="headerlink" title="5.5 Map参数"></a>5.5 Map参数</h4>
+      <ul>
+<li>Mybatis支持直接Map入参，map的key&#x3D;参数key</li>
+</ul>
+
+        <h4 id="5-6-Collection-List-Array等参数">
+          <a href="#5-6-Collection-List-Array等参数" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-6-Collection-List-Array等参数" class="headerlink" title="5.6 Collection|List|Array等参数"></a>5.6 Collection|List|Array等参数</h4>
+      <ul>
+<li>参数名：collection、list、array</li>
+</ul>
+
+        <h3 id="第六章-Mybatis参数传递【-与-区别】">
+          <a href="#第六章-Mybatis参数传递【-与-区别】" class="heading-link"><i class="fas fa-link"></i></a><a href="#第六章-Mybatis参数传递【-与-区别】" class="headerlink" title="第六章 Mybatis参数传递【#与$区别】"></a>第六章 Mybatis参数传递【#与$区别】</h3>
+      
+        <h4 id="6-1-回顾JDBC">
+          <a href="#6-1-回顾JDBC" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-1-回顾JDBC" class="headerlink" title="6.1 回顾JDBC"></a>6.1 回顾JDBC</h4>
+      <ul>
+<li>DriverManager</li>
+<li>Connection</li>
+<li><strong>Statement</strong>：执行SQL语句，入参使用SQL【String】拼接方式</li>
+<li><strong>PreparedStatement</strong>执行SQL语句【预编译SQL】，入参使用占位符方式</li>
+<li>ResultSet</li>
+</ul>
+
+        <h4 id="6-2-与-区别">
+          <a href="#6-2-与-区别" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-2-与-区别" class="headerlink" title="6.2 #与$区别"></a>6.2 #与$区别</h4>
+      <ul>
+<li>【#】底层执行SQL语句的对象，使用<strong>PreparedStatementd</strong>，预编译SQL，防止SQL注入安全隐患，相对比较安全。</li>
+<li>【$】底层执行SQL语句的对象使用<strong>Statement</strong>对象，未解决SQL注入安全隐患，相对不安全。</li>
+</ul>
+
+        <h4 id="6-3-与-使用场景">
+          <a href="#6-3-与-使用场景" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-3-与-使用场景" class="headerlink" title="6.3 #与$使用场景"></a>6.3 #与$使用场景</h4>
+      <blockquote>
+<p>查询SQL：select col,col2 from table1 where col&#x3D;? and col2&#x3D;?  group by ?, order by ?  limit ?,?</p>
+</blockquote>
+<ul>
+<li><p>#使用场景，sql占位符位置均可以使用#</p>
+</li>
+<li><p>$使用场景，#解决不了的参数传递问题，均可以交给$处理【如：form 动态化表名】</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测试$使用场景</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title function_">selectEmpByDynamitTable</span><span class="params">(<span class="meta">@Param(&quot;tblName&quot;)</span> String tblName)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByDynamitTable&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    FROM</span><br><span class="line">        $&#123;tblName&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h3 id="第七章-Mybatis查询中返回值四种情况">
+          <a href="#第七章-Mybatis查询中返回值四种情况" class="heading-link"><i class="fas fa-link"></i></a><a href="#第七章-Mybatis查询中返回值四种情况" class="headerlink" title="第七章 Mybatis查询中返回值四种情况"></a>第七章 Mybatis查询中返回值四种情况</h3>
+      
+        <h4 id="7-1-查询单行数据返回单个对象">
+          <a href="#7-1-查询单行数据返回单个对象" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-1-查询单行数据返回单个对象" class="headerlink" title="7.1 查询单行数据返回单个对象"></a>7.1 查询单行数据返回单个对象</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过id获取员工信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> Employee <span class="title function_">selectEmpById</span><span class="params">(<span class="type">int</span> empId)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpById&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    FROM</span><br><span class="line">        tbl_employee</span><br><span class="line">    WHERE</span><br><span class="line">        id=#&#123;empId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="7-2-查询多行数据返回对象的集合">
+          <a href="#7-2-查询多行数据返回对象的集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-2-查询多行数据返回对象的集合" class="headerlink" title="7.2 查询多行数据返回对象的集合"></a>7.2 查询多行数据返回对象的集合</h4>
+      <figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询所有员工信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title function_">selectAllEmps</span><span class="params">()</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectAllEmps&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    FROM</span><br><span class="line">        tbl_employee</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+<ul>
+<li>注意：如果返回的是集合，那应该设置为<strong>集合包含的类型</strong>，而不是集合本身的类型。</li>
+</ul>
+
+        <h4 id="7-3-查询单行数据返回Map集合">
+          <a href="#7-3-查询单行数据返回Map集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-3-查询单行数据返回Map集合" class="headerlink" title="7.3 查询单行数据返回Map集合"></a>7.3 查询单行数据返回Map集合</h4>
+      <ul>
+<li><p>Map&lt;String key,Object value&gt;</p>
+<ul>
+<li>字段作为Map的key，查询结果作为Map的Value</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询单行数据返回Map集合</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> Map&lt;String,Object&gt; <span class="title function_">selectEmpReturnMap</span><span class="params">(<span class="type">int</span> empId)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    查询单行数据返回Map集合--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpReturnMap&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;map&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    FROM</span><br><span class="line">    	tbl_employee</span><br><span class="line">    WHERE</span><br><span class="line">    	id=#&#123;empId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h4 id="7-4-查询多行数据返回Map集合">
+          <a href="#7-4-查询多行数据返回Map集合" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-4-查询多行数据返回Map集合" class="headerlink" title="7.4 查询多行数据返回Map集合"></a>7.4 查询多行数据返回Map集合</h4>
+      <ul>
+<li><p>Map&lt;Integer key,Employee value&gt;</p>
+<ul>
+<li>对象的id作为key</li>
+<li>对象作为value</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询多行数据返回Map</span></span><br><span class="line"><span class="comment"> * Map&lt;Integer,Object&gt;</span></span><br><span class="line"><span class="comment"> * Map&lt;Integer,Employee&gt;</span></span><br><span class="line"><span class="comment"> *      对象Id作为：key</span></span><br><span class="line"><span class="comment"> *      对象作为：value</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@MapKey(&quot;id&quot;)</span></span><br><span class="line"><span class="keyword">public</span> Map&lt;Integer,Employee&gt; <span class="title function_">selectEmpsReturnMap</span><span class="params">()</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpsReturnMap&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;map&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    FROM</span><br><span class="line">        tbl_employee</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h3 id="第八章-Mybatis中自动映射与自定义映射">
+          <a href="#第八章-Mybatis中自动映射与自定义映射" class="heading-link"><i class="fas fa-link"></i></a><a href="#第八章-Mybatis中自动映射与自定义映射" class="headerlink" title="第八章 Mybatis中自动映射与自定义映射"></a>第八章 Mybatis中自动映射与自定义映射</h3>
+      <blockquote>
+<p>自动映射【resultType】</p>
+<p>自定义映射【resultMap】</p>
+</blockquote>
+
+        <h4 id="8-1-自动映射与自定义映射">
+          <a href="#8-1-自动映射与自定义映射" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-1-自动映射与自定义映射" class="headerlink" title="8.1 自动映射与自定义映射"></a>8.1 自动映射与自定义映射</h4>
+      <ul>
+<li>自动映射【resultType】：指的是自动将表中的字段与类中的属性进行关联映射<ul>
+<li>自动映射解决不了两类问题	<ul>
+<li><strong>多表连接查询时，需要返回多张表的结果集</strong></li>
+<li>单表查询时，不支持驼峰式自动映射【不想为字段定义别名】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>自定义映射【resultMap】：自动映射解决不了问题，交给自定义映射</li>
+<li>注意：resultType与resultMap只能同时使用一个</li>
+</ul>
+
+        <h4 id="8-2-自定义映射-级联映射">
+          <a href="#8-2-自定义映射-级联映射" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-2-自定义映射-级联映射" class="headerlink" title="8.2 自定义映射-级联映射"></a>8.2 自定义映射-级联映射</h4>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    自定义映射 【员工与部门关系】--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;empAndDeptResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  定义主键字段与属性关联关系 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--  定义非主键字段与属性关联关系--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;last_name&quot;</span> <span class="attr">property</span>=<span class="string">&quot;lastName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;email&quot;</span> <span class="attr">property</span>=<span class="string">&quot;email&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;salary&quot;</span> <span class="attr">property</span>=<span class="string">&quot;salary&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--        为员工中所属部门，自定义关联关系--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;dept_id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;dept.deptId&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;dept_name&quot;</span> <span class="attr">property</span>=<span class="string">&quot;dept.deptName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpAndDeptByEmpId&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;empAndDeptResultMap&quot;</span>&gt;</span></span><br><span class="line">   SELECT</span><br><span class="line">        e.`id`,</span><br><span class="line">        e.`email`,</span><br><span class="line">        e.`last_name`,</span><br><span class="line">        e.`salary`,</span><br><span class="line">        d.`dept_id`,</span><br><span class="line">        d.`dept_name`</span><br><span class="line">    FROM</span><br><span class="line">        tbl_employee e,</span><br><span class="line">        tbl_dept d</span><br><span class="line">    WHERE</span><br><span class="line">        e.`dept_id` = d.`dept_id`</span><br><span class="line">    AND</span><br><span class="line">        e.`id` = #&#123;empId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+
+        <h4 id="8-3-自定义映射-association映射">
+          <a href="#8-3-自定义映射-association映射" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-3-自定义映射-association映射" class="headerlink" title="8.3 自定义映射-association映射"></a>8.3 自定义映射-association映射</h4>
+      <ul>
+<li><p>特点：解决一对一映射关系【多对一】</p>
+</li>
+<li><p>示例代码</p>
+<ul>
+<li>&#96;&#96;&#96;xml<!--    自定义映射 【员工与部门关系】-->
+<resultMap id="empAndDeptResultMapAssociation" type="employee">
+    <!--  定义主键字段与属性关联关系 -->
+    <id column="id" property="id"></id>
+    <!--  定义非主键字段与属性关联关系-->
+    <result column="last_name" property="lastName"></result>
+    <result column="email" property="email"></result>
+    <result column="salary" property="salary"></result>
+    <!--        为员工中所属部门，自定义关联关系-->
+    <association property="dept" javatype="com.atguigu.mybatis.pojo.Dept">
+        <id column="dept_id" property="deptId"></id>
+        <result column="dept_name" property="deptName"></result>
+    </association>
+</resultMap>
+<figure class="highlight plaintext"><div class="table-container"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">#### 8.4 自定义映射-collection映射</span><br><span class="line"></span><br><span class="line">- 示例代码</span><br><span class="line"></span><br><span class="line">  ```java</span><br><span class="line">  /**</span><br><span class="line">   * 通过部门id获取部门信息，及部门所属员工信息</span><br><span class="line">   */</span><br><span class="line">  public Dept selectDeptAndEmpByDeptId(int deptId);</span><br></pre></td></tr></table></div></figure></li>
+</ul>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">id</span>=<span class="string">&quot;deptAndempResultMap&quot;</span> <span class="attr">type</span>=<span class="string">&quot;dept&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">id</span> <span class="attr">property</span>=<span class="string">&quot;deptId&quot;</span> <span class="attr">column</span>=<span class="string">&quot;dept_id&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">property</span>=<span class="string">&quot;deptName&quot;</span> <span class="attr">column</span>=<span class="string">&quot;dept_name&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">collection</span> <span class="attr">property</span>=<span class="string">&quot;empList&quot;</span></span></span><br><span class="line"><span class="tag">                <span class="attr">ofType</span>=<span class="string">&quot;com.atguigu.mybatis.pojo.Employee&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span> <span class="attr">column</span>=<span class="string">&quot;id&quot;</span> <span class="attr">property</span>=<span class="string">&quot;id&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;last_name&quot;</span> <span class="attr">property</span>=<span class="string">&quot;lastName&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;email&quot;</span> <span class="attr">property</span>=<span class="string">&quot;email&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">&quot;salary&quot;</span> <span class="attr">property</span>=<span class="string">&quot;salary&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">result</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">collection</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectDeptAndEmpByDeptId&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;deptAndempResultMap&quot;</span>&gt;</span></span><br><span class="line">    SELECT</span><br><span class="line">        e.`id`,</span><br><span class="line">        e.`email`,</span><br><span class="line">        e.`last_name`,</span><br><span class="line">        e.`salary`,</span><br><span class="line">        d.`dept_id`,</span><br><span class="line">        d.`dept_name`</span><br><span class="line">    FROM</span><br><span class="line">        tbl_employee e,</span><br><span class="line">        tbl_dept d</span><br><span class="line">    WHERE</span><br><span class="line">        e.`dept_id` = d.`dept_id`</span><br><span class="line">    AND</span><br><span class="line">        d.dept_id = #&#123;deptId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h4 id="8-5-ResultMap相关标签及属性">
+          <a href="#8-5-ResultMap相关标签及属性" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-5-ResultMap相关标签及属性" class="headerlink" title="8.5 ResultMap相关标签及属性"></a>8.5 ResultMap相关标签及属性</h4>
+      <ul>
+<li><p>resultMap标签：自定义映射标签</p>
+<ul>
+<li>id属性：定义唯一标识</li>
+<li>type属性：设置映射类型</li>
+</ul>
+</li>
+<li><p>resultMap子标签</p>
+<ul>
+<li>id标签：定义主键字段与属性关联关系</li>
+<li>result标签：定义非主键字段与属性关联关系<ul>
+<li>column属性：定义表中字段名称</li>
+<li>property属性：定义类中属性名称</li>
+</ul>
+</li>
+<li><strong>association标签</strong>：定义一对一的关联关系<ul>
+<li>property：定义关联关系属性</li>
+<li>javaType：定义关联关系属性的类型</li>
+<li>select：设置分步查询SQL全路径</li>
+<li>colunm：设置分步查询SQL中需要参数</li>
+<li>fetchType：设置局部延迟加载【懒加载】是否开启</li>
+</ul>
+</li>
+<li><strong>collection标签</strong>：定义一对多的关联关系<ul>
+<li>property：定义一对一关联关系属性</li>
+<li>ofType：定义一对一关联关系属性类型</li>
+<li>fetchType：设置局部延迟加载【懒加载】是否开启</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="8-6-Mybatis中分步查询">
+          <a href="#8-6-Mybatis中分步查询" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-6-Mybatis中分步查询" class="headerlink" title="8.6 Mybatis中分步查询"></a>8.6 Mybatis中分步查询</h4>
+      <ul>
+<li><p>为什么使用分步查询【分步查询优势】？</p>
+<ul>
+<li>将多表连接查询，改为【分步单表查询】，从而提高程序运行效率</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<ul>
+<li><p>一对一</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过员工id获取员工信息及员工所属的部门信息【分步查询】</span></span><br><span class="line"><span class="comment">        1. 先通过员工id获取员工信息【id、last_name、email、salary、dept_id】</span></span><br><span class="line"><span class="comment">        2. 再通过部门id获取部门信息【dept_id、dept_name】</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> Employee <span class="title function_">selectEmpAndDeptByEmpIdAssociationStep</span><span class="params">(<span class="type">int</span> empId)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpAndDeptByEmpIdAssociationStep&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;empAndDeptResultMapAssocationStep&quot;</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary,</span><br><span class="line">        dept_id</span><br><span class="line">    from</span><br><span class="line">        tbl_employee</span><br><span class="line">    where</span><br><span class="line">        id=#&#123;empId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过部门id获取部门信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> Dept <span class="title function_">selectDeptByDeptId</span><span class="params">(<span class="type">int</span> deptId)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectDeptByDeptId&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;dept&quot;</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">        dept_id,</span><br><span class="line">        dept_name</span><br><span class="line">    from</span><br><span class="line">        tbl_dept</span><br><span class="line">    where</span><br><span class="line">        dept_id=#&#123;deptId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="day04">
+          <a href="#day04" class="heading-link"><i class="fas fa-link"></i></a><a href="#day04" class="headerlink" title="day04"></a>day04</h4>
+      <ul>
+<li><p>一对多</p>
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过部门id获取部门信息，及部门所属员工信息【分步查询】</span></span><br><span class="line"><span class="comment">        1. 通过部门id获取部门信息</span></span><br><span class="line"><span class="comment">        2. 通过部门id获取员工信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> Dept <span class="title function_">selectDeptAndEmpByDeptIdStep</span><span class="params">(<span class="type">int</span> deptId)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--    通过部门id获取部门信息，及部门所属员工信息【分步查询】--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--    1. 通过部门id获取部门信息--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--    2. 通过部门id获取员工信息--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectDeptAndEmpByDeptIdStep&quot;</span> <span class="attr">resultMap</span>=<span class="string">&quot;deptAndEmpResultMapStep&quot;</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            dept_id,</span><br><span class="line">            dept_name</span><br><span class="line">        from</span><br><span class="line">            tbl_dept</span><br><span class="line">        where</span><br><span class="line">            dept_id=#&#123;deptId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight java"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过部门Id获取员工信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> deptId</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> List&lt;Employee&gt; <span class="title function_">selectEmpByDeptId</span><span class="params">(<span class="type">int</span> deptId)</span>;</span><br></pre></td></tr></table></div></figure>
+
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByDeptId&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">    select</span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary,</span><br><span class="line">        dept_id</span><br><span class="line">    from</span><br><span class="line">        tbl_employee</span><br><span class="line">    where</span><br><span class="line">        dept_id=#&#123;deptId&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h4 id="8-7-Mybatis延迟加载【懒加载】">
+          <a href="#8-7-Mybatis延迟加载【懒加载】" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-7-Mybatis延迟加载【懒加载】" class="headerlink" title="8.7 Mybatis延迟加载【懒加载】"></a>8.7 Mybatis延迟加载【懒加载】</h4>
+      <ul>
+<li><p>需要时加载，不需要暂时不加载</p>
+</li>
+<li><p>优势：提升程序运行效率</p>
+</li>
+<li><p>语法</p>
+<ul>
+<li><p>全局设置</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 开启延迟加载 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;lazyLoadingEnabled&quot;</span> <span class="attr">value</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 设置加载的数据是按需加载3.4.2及以后的版本该步骤可省略--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">&quot;aggressiveLazyLoading&quot;</span> <span class="attr">value</span>=<span class="string">&quot;false&quot;</span>/&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>局部设置</p>
+<ul>
+<li><p>fetchType</p>
+<ul>
+<li>eager：关闭局部延迟加载</li>
+<li>lazy：开启局部延迟加载</li>
+</ul>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">association</span> <span class="attr">property</span>=<span class="string">&quot;dept&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">select</span>=<span class="string">&quot;com.atguigu.mybatis.mapper.DeptMapper.selectDeptByDeptId&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">column</span>=<span class="string">&quot;dept_id&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">fetchType</span>=<span class="string">&quot;eager&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">association</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="8-8-扩展">
+          <a href="#8-8-扩展" class="heading-link"><i class="fas fa-link"></i></a><a href="#8-8-扩展" class="headerlink" title="8.8 扩展"></a>8.8 扩展</h4>
+      <ul>
+<li><p>如果分步查询时，需要传递给调用的查询中多个参数，则需要将多个参数封装成</p>
+<p>Map来进行传递，语法如下**: {k1&#x3D;v1, k2&#x3D;v2….}**</p>
+</li>
+</ul>
+
+        <h3 id="第九章-Mybatis动态SQL【重点】">
+          <a href="#第九章-Mybatis动态SQL【重点】" class="heading-link"><i class="fas fa-link"></i></a><a href="#第九章-Mybatis动态SQL【重点】" class="headerlink" title="第九章 Mybatis动态SQL【重点】"></a>第九章 Mybatis动态SQL【重点】</h3>
+      <blockquote>
+<p>SQL中注释</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line">//方式一</span><br><span class="line">-- 1=1</span><br><span class="line">//方式二【推荐使用】</span><br><span class="line"><span class="comment">&lt;!-- 1=1 --&gt;</span></span><br></pre></td></tr></table></div></figure>
+</blockquote>
+
+        <h4 id="9-1-动态SQL概述">
+          <a href="#9-1-动态SQL概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#9-1-动态SQL概述" class="headerlink" title="9.1 动态SQL概述"></a>9.1 动态SQL概述</h4>
+      <ul>
+<li>动态SQL指的是：SQL语句可动态化</li>
+<li>Mybatis的动态SQL中支持OGNL表达式语言，OGNL（ Object Graph Navigation Language ）对象图导航语言</li>
+</ul>
+
+        <h4 id="9-2-常用标签">
+          <a href="#9-2-常用标签" class="heading-link"><i class="fas fa-link"></i></a><a href="#9-2-常用标签" class="headerlink" title="9.2 常用标签"></a>9.2 常用标签</h4>
+      <ul>
+<li><p><strong>if标签</strong>：用于完成简单的判断</p>
+</li>
+<li><p><strong>where标签</strong>：用于解决where关键字及where后第一个and或or的问题</p>
+</li>
+<li><p><strong>trim标签</strong>： 可以在条件判断完的SQL语句前后添加或者去掉指定的字符</p>
+<ul>
+<li><p>prefix: 添加前缀</p>
+</li>
+<li><p>prefixOverrides: 去掉前缀</p>
+</li>
+<li><p>suffix: 添加后缀</p>
+</li>
+<li><p>suffixOverrides: 去掉后缀</p>
+</li>
+</ul>
+</li>
+<li><p><strong>set标签</strong>：主要用于解决set关键字及多出一个【，】问题</p>
+</li>
+<li><p><strong>choose标签</strong>：类似java中if-else【switch-case】结构</p>
+</li>
+<li><p><strong>foreach标签</strong>：类似java中for循环</p>
+<ul>
+<li>collection: 要迭代的集合</li>
+<li>item: 当前从集合中迭代出的元素</li>
+<li>separator: 元素与元素之间的分隔符</li>
+<li>open: 开始字符</li>
+<li>close:结束字符</li>
+</ul>
+</li>
+<li><p><strong>sql标签</strong>：提取可重用SQL片段</p>
+</li>
+</ul>
+
+        <h4 id="9-3-示例代码">
+          <a href="#9-3-示例代码" class="heading-link"><i class="fas fa-link"></i></a><a href="#9-3-示例代码" class="headerlink" title="9.3 示例代码"></a>9.3 示例代码</h4>
+      <figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">mapper</span></span></span><br><span class="line"><span class="meta">        <span class="keyword">PUBLIC</span> <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span></span></span><br><span class="line"><span class="meta">        <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.atguigu.mybatis.mapper.EmployeeMapper&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;emp_col&quot;</span>&gt;</span></span><br><span class="line">        id,</span><br><span class="line">        last_name,</span><br><span class="line">        email,</span><br><span class="line">        salary</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sql</span> <span class="attr">id</span>=<span class="string">&quot;select_employee&quot;</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            id,</span><br><span class="line">            last_name,</span><br><span class="line">            email,</span><br><span class="line">            salary</span><br><span class="line">        from</span><br><span class="line">            tbl_employee</span><br><span class="line">    <span class="tag">&lt;/<span class="name">sql</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 按条件查询员工信息【条件不确定】--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByOpr&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;select_employee&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;id != null&quot;</span>&gt;</span></span><br><span class="line">               and id = #&#123;id&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;lastName != null&quot;</span>&gt;</span></span><br><span class="line">                and last_name = #&#123;lastName&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;email != null&quot;</span>&gt;</span></span><br><span class="line">                and email = #&#123;email&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;salary != null&quot;</span>&gt;</span></span><br><span class="line">                and salary = #&#123;salary&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByOprTrim&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;select_employee&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">trim</span> <span class="attr">prefix</span>=<span class="string">&quot;where&quot;</span> <span class="attr">suffixOverrides</span>=<span class="string">&quot;and&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;id != null&quot;</span>&gt;</span></span><br><span class="line">                id = #&#123;id&#125; and</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;lastName != null&quot;</span>&gt;</span></span><br><span class="line">                last_name = #&#123;lastName&#125; and</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;email != null&quot;</span>&gt;</span></span><br><span class="line">                email = #&#123;email&#125; and</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;salary != null&quot;</span>&gt;</span></span><br><span class="line">                salary = #&#123;salary&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">trim</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">update</span> <span class="attr">id</span>=<span class="string">&quot;updateEmpByOpr&quot;</span>&gt;</span></span><br><span class="line">        update</span><br><span class="line">            tbl_employee</span><br><span class="line">        <span class="tag">&lt;<span class="name">set</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;lastName != null&quot;</span>&gt;</span></span><br><span class="line">                last_name=#&#123;lastName&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;email != null&quot;</span>&gt;</span></span><br><span class="line">                email=#&#123;email&#125;,</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;salary != null&quot;</span>&gt;</span></span><br><span class="line">                salary=#&#123;salary&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br><span class="line">        where</span><br><span class="line">            id = #&#123;id&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">update</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByOneOpr&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            <span class="tag">&lt;<span class="name">include</span> <span class="attr">refid</span>=<span class="string">&quot;emp_col&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">include</span>&gt;</span></span><br><span class="line">        from</span><br><span class="line">            tbl_employee</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">choose</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">&quot;id != null&quot;</span>&gt;</span></span><br><span class="line">                    id = #&#123;id&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">&quot;lastName != null&quot;</span>&gt;</span></span><br><span class="line">                    last_name = #&#123;lastName&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">&quot;email != null&quot;</span>&gt;</span></span><br><span class="line">                    email = #&#123;email&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">when</span> <span class="attr">test</span>=<span class="string">&quot;salary != null&quot;</span>&gt;</span></span><br><span class="line">                    salary = #&#123;salary&#125;</span><br><span class="line">                <span class="tag">&lt;/<span class="name">when</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">otherwise</span>&gt;</span></span><br><span class="line">                    1=1</span><br><span class="line">                <span class="tag">&lt;/<span class="name">otherwise</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">choose</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;selectEmpByIds&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;employee&quot;</span>&gt;</span></span><br><span class="line">        select</span><br><span class="line">            id,</span><br><span class="line">            last_name,</span><br><span class="line">            email,</span><br><span class="line">            salary</span><br><span class="line">        from</span><br><span class="line">            tbl_employee</span><br><span class="line">        <span class="tag">&lt;<span class="name">where</span>&gt;</span></span><br><span class="line">            id in(</span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;ids&quot;</span> <span class="attr">item</span>=<span class="string">&quot;id&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">                #&#123;id&#125;</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">            )</span><br><span class="line">        <span class="tag">&lt;/<span class="name">where</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">&quot;batchInsertEmp&quot;</span>&gt;</span></span><br><span class="line">        INSERT INTO</span><br><span class="line">            tbl_employee(last_name,email,salary)</span><br><span class="line">        VALUES</span><br><span class="line">            <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;employees&quot;</span> <span class="attr">item</span>=<span class="string">&quot;emp&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span></span><br><span class="line">                (#&#123;emp.lastName&#125;,#&#123;emp.email&#125;,#&#123;emp.salary&#125;)</span><br><span class="line">            <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+
+
+
+
+        <h3 id="第十章-Mybatis中缓存机制">
+          <a href="#第十章-Mybatis中缓存机制" class="heading-link"><i class="fas fa-link"></i></a><a href="#第十章-Mybatis中缓存机制" class="headerlink" title="第十章 Mybatis中缓存机制"></a>第十章 Mybatis中缓存机制</h3>
+      
+        <h4 id="10-1-缓存概述">
+          <a href="#10-1-缓存概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#10-1-缓存概述" class="headerlink" title="10.1 缓存概述"></a>10.1 缓存概述</h4>
+      <ul>
+<li>生活中缓存<ul>
+<li>缓存一些音频、视频优势<ul>
+<li>节约数据流量</li>
+<li>提高播放性能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>程序中缓存【Mybatis缓存】<ul>
+<li>使用缓存优势<ul>
+<li>提高查询效率</li>
+<li>降低服务器压力</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="10-2-Mybatis中的缓存概述">
+          <a href="#10-2-Mybatis中的缓存概述" class="heading-link"><i class="fas fa-link"></i></a><a href="#10-2-Mybatis中的缓存概述" class="headerlink" title="10.2 Mybatis中的缓存概述"></a>10.2 Mybatis中的缓存概述</h4>
+      <ul>
+<li><p>一级缓存</p>
+</li>
+<li><p>二级缓存</p>
+</li>
+<li><p>第三方缓存</p>
+<p><img src="/2022/05/19/Mybatis/image-20220324141538764.png" alt="image-20220324141538764"></p>
+</li>
+</ul>
+
+        <h4 id="10-3-Mybatis缓存机制之一级缓存">
+          <a href="#10-3-Mybatis缓存机制之一级缓存" class="heading-link"><i class="fas fa-link"></i></a><a href="#10-3-Mybatis缓存机制之一级缓存" class="headerlink" title="10.3 Mybatis缓存机制之一级缓存"></a>10.3 Mybatis缓存机制之一级缓存</h4>
+      <ul>
+<li><p>概述：一级缓存【本地缓存（Local Cache）或SqlSession级别缓存】</p>
+</li>
+<li><p>特点</p>
+<ul>
+<li>一级缓存默认开启</li>
+<li>不能关闭</li>
+<li>可以清空</li>
+</ul>
+</li>
+<li><p>缓存原理</p>
+<ul>
+<li>第一次获取数据时，先从数据库中加载数据，将数据缓存至Mybatis一级缓存中【缓存底层实现原理Map，key：hashCode+查询的SqlId+编写的sql查询语句+参数】</li>
+<li>以后再次获取数据时，先从一级缓存中获取，<strong>如未获取到数据</strong>，再从数据库中获取数据。</li>
+</ul>
+</li>
+<li><p><strong>一级缓存五种失效情况</strong></p>
+<ol>
+<li><p>不同的SqlSession对应不同的一级缓存</p>
+</li>
+<li><p>同一个SqlSession但是查询条件不同</p>
+</li>
+<li><p><strong>同一个SqlSession两次查询期间执行了任何一次增删改操作</strong></p>
+</li>
+</ol>
+<p>	</p>
+<ul>
+<li>清空一级缓存</li>
+</ul>
+<ol start="4">
+<li>同一个SqlSession两次查询期间手动清空了缓存</li>
+</ol>
+<ul>
+<li><strong>sqlSession.clearCache()</strong></li>
+</ul>
+<ol start="5">
+<li>同一个SqlSession两次查询期间提交了事务</li>
+</ol>
+<ul>
+<li>sqlSession.commit()</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="10-4-Mybatis缓存机制之二级缓存">
+          <a href="#10-4-Mybatis缓存机制之二级缓存" class="heading-link"><i class="fas fa-link"></i></a><a href="#10-4-Mybatis缓存机制之二级缓存" class="headerlink" title="10.4 Mybatis缓存机制之二级缓存"></a>10.4 Mybatis缓存机制之二级缓存</h4>
+      <ul>
+<li><p>二级缓存【second level cache】概述</p>
+<ul>
+<li>二级缓存【全局作用域缓存】</li>
+<li>SqlSessionFactory级别缓存</li>
+</ul>
+</li>
+<li><p>二级缓存特点</p>
+<ul>
+<li>二级缓存默认关闭，需要开启才能使用</li>
+<li>二级缓存需要提交sqlSession或关闭sqlSession时，才会缓存。</li>
+</ul>
+</li>
+<li><p>二级缓存使用的步骤:</p>
+<p>① 全局配置文件中开启二级缓存<setting name="cacheEnabled" value="true"></setting></p>
+<p>② 需要使用二级缓存的<strong>映射文件处</strong>使用cache配置缓存<cache></cache></p>
+<p>③ 注意：POJO需要实现Serializable接口</p>
+<p><img src="/2022/05/19/Mybatis/image-20220324151903793.png" alt="image-20220324151903793"></p>
+<p>④ <strong>关闭sqlSession或提交sqlSession时，将数据缓存到二级缓存</strong></p>
+</li>
+<li><p>二级缓存底层原理</p>
+<ul>
+<li>第一次获取数据时，先从数据库中获取数据，将数据缓存至一级缓存；当提交或关闭SqlSession时，将数据缓存至二级缓存</li>
+<li>以后再次获取数据时，先从一级缓存中获取数据，如一级缓存没有指定数据，再去二级缓存中获取数据。如二级缓存也没有指定数据时，需要去数据库中获取数据，……</li>
+</ul>
+</li>
+<li><p>二级缓存相关属性</p>
+<ul>
+<li>eviction&#x3D;“FIFO”：缓存清除【回收】策略。<ul>
+<li>LRU – 最近最少使用的：移除最长时间不被使用的对象。</li>
+<li>FIFO – 先进先出：按对象进入缓存的顺序来移除它们。</li>
+</ul>
+</li>
+<li>flushInterval：刷新间隔，单位毫秒</li>
+<li>size：引用数目，正整数</li>
+<li>readOnly：只读，true&#x2F;false</li>
+</ul>
+</li>
+<li><p>二级缓存的失效情况</p>
+<ul>
+<li>在两次查询之间，执行增删改操作，会同时清空一级缓存和二级缓存</li>
+<li>sqlSession.clearCache()：只是用来清除一级缓存。</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="10-5-Mybatis中缓存机制之第三方缓存">
+          <a href="#10-5-Mybatis中缓存机制之第三方缓存" class="heading-link"><i class="fas fa-link"></i></a><a href="#10-5-Mybatis中缓存机制之第三方缓存" class="headerlink" title="10.5 Mybatis中缓存机制之第三方缓存"></a>10.5 Mybatis中缓存机制之第三方缓存</h4>
+      <ul>
+<li><p>第三方缓存：EhCache</p>
+</li>
+<li><p>EhCache 是一个纯Java的进程内缓存框架</p>
+</li>
+<li><p>使用步骤</p>
+<ul>
+<li><p>导入jar包</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mybatis-ehcache --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.caches<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-ehcache<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- slf4j-log4j12 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>编写配置文件【ehcache.xml】</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ehcache</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:noNamespaceSchemaLocation</span>=<span class="string">&quot;../config/ehcache.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 磁盘保存路径 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">diskStore</span> <span class="attr">path</span>=<span class="string">&quot;E:\mybatis\ehcache&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">defaultCache</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsInMemory</span>=<span class="string">&quot;512&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">maxElementsOnDisk</span>=<span class="string">&quot;10000000&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">eternal</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">overflowToDisk</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToIdleSeconds</span>=<span class="string">&quot;120&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">timeToLiveSeconds</span>=<span class="string">&quot;120&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">diskExpiryThreadIntervalSeconds</span>=<span class="string">&quot;120&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">memoryStoreEvictionPolicy</span>=<span class="string">&quot;LRU&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">defaultCache</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ehcache</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>加载第三方缓存【映射文件】</p>
+</li>
+<li><p>开始使用</p>
+</li>
+</ul>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>第三方缓存，需要建立在二级缓存基础上【需要开启二级缓存，第三方缓存才能生效】</li>
+<li>如何让第三方缓存失效【将二级缓存设置失效即可】</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Mybatis</category>
+      </categories>
+      <tags>
+        <tag>Mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Maven</title>
+    <url>/2022/05/19/Maven/</url>
+    <content><![CDATA[
+        <h3 id="回顾：JavaSE-JavaWeb-SSM阶段-高级-项目阶段-…">
+          <a href="#回顾：JavaSE-JavaWeb-SSM阶段-高级-项目阶段-…" class="heading-link"><i class="fas fa-link"></i></a><a href="#回顾：JavaSE-JavaWeb-SSM阶段-高级-项目阶段-…" class="headerlink" title="回顾：JavaSE   JavaWeb   SSM阶段   高级   项目阶段 …."></a>回顾：JavaSE   JavaWeb   SSM阶段   高级   项目阶段 ….</h3>
+      <blockquote>
+
+        <h4 id="JavaSE">
+          <a href="#JavaSE" class="heading-link"><i class="fas fa-link"></i></a><a href="#JavaSE" class="headerlink" title="JavaSE"></a>JavaSE</h4>
+      <ul>
+<li><p>JDK  变量  数据类型  运算符  流程控制  数组   类和对象【JavaOOP】 集合与泛型  IO  常用类  <strong>反射</strong>  设计模式</p>
+<p>网络编程   JDBC  Mysql …</p>
+</li>
+</ul>
+
+        <h4 id="JavaWeb【B-x2F-S】">
+          <a href="#JavaWeb【B-x2F-S】" class="heading-link"><i class="fas fa-link"></i></a><a href="#JavaWeb【B-x2F-S】" class="headerlink" title="JavaWeb【B&#x2F;S】"></a>JavaWeb【B&#x2F;S】</h4>
+      <ul>
+<li>浏览器：HTML、CSS、JavaScript、Vue、Axios、Cookie …</li>
+<li>服务器：Tomcat、Http、<strong>Servlet、Filter、Listener</strong>、Session、Thymeleaf…</li>
+</ul>
+
+        <h3 id="SSM【Spring-SpringMVC-Mybatis】">
+          <a href="#SSM【Spring-SpringMVC-Mybatis】" class="heading-link"><i class="fas fa-link"></i></a><a href="#SSM【Spring-SpringMVC-Mybatis】" class="headerlink" title="SSM【Spring  SpringMVC  Mybatis】"></a>SSM【Spring  SpringMVC  Mybatis】</h3>
+      </blockquote>
+
+        <h3 id="Maven">
+          <a href="#Maven" class="heading-link"><i class="fas fa-link"></i></a><a href="#Maven" class="headerlink" title="Maven"></a>Maven</h3>
+      
+        <h3 id="第一章-为什么使用Maven">
+          <a href="#第一章-为什么使用Maven" class="heading-link"><i class="fas fa-link"></i></a><a href="#第一章-为什么使用Maven" class="headerlink" title="第一章 为什么使用Maven"></a>第一章 为什么使用Maven</h3>
+      <ul>
+<li><p>获取jar包</p>
+<ul>
+<li>使用Maven之前，自行在网络中下载jar包，效率较低。如【谷歌、百度、CSDN….】</li>
+<li>使用Maven之后，统一在一个地址下载资源jar包【阿里云镜像服务器等…】</li>
+</ul>
+</li>
+<li><p>添加jar包</p>
+<ul>
+<li>使用Maven之前，将jar复制到项目工程中，jar包添加到项目中，相对浪费存储空间</li>
+<li>使用Maven之后，jar包统一存储Maven本地仓库，使用坐标方式将jar包从仓库引入到项目中</li>
+</ul>
+<p><img src="/2022/05/19/Maven/image-20220320091431579.png" alt="image-20220320091431579"></p>
+</li>
+<li><p>使用Maven便于解决jar包<strong>冲突及依赖</strong>问题</p>
+</li>
+</ul>
+
+        <h3 id="第二章-什么是Maven">
+          <a href="#第二章-什么是Maven" class="heading-link"><i class="fas fa-link"></i></a><a href="#第二章-什么是Maven" class="headerlink" title="第二章 什么是Maven"></a>第二章 什么是Maven</h3>
+      <ul>
+<li>Maven字面意：专家、内行</li>
+<li>Maven是一款自动化构建工具，专注服务于Java平台的<strong>项目构建</strong>和<strong>依赖管理</strong>。</li>
+<li>依赖管理：jar之间的依赖关系，jar包管理问题统称为依赖管理</li>
+<li><strong>项目构建</strong>：项目构建不等同于项目创建<ul>
+<li>项目构建是一个过程【7步骤组成】，项目创建是瞬间完成的<ol>
+<li>清理：mvn clean</li>
+<li>编译：mvn compile</li>
+<li>测试：mvn test</li>
+<li>报告：</li>
+<li>打包：mvn package</li>
+<li>安装：mvn install</li>
+<li>部署：</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="第三章-Maven基本使用">
+          <a href="#第三章-Maven基本使用" class="heading-link"><i class="fas fa-link"></i></a><a href="#第三章-Maven基本使用" class="headerlink" title="第三章 Maven基本使用"></a>第三章 Maven基本使用</h3>
+      
+        <h4 id="3-1-Maven准备">
+          <a href="#3-1-Maven准备" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-1-Maven准备" class="headerlink" title="3.1 Maven准备"></a>3.1 Maven准备</h4>
+      <blockquote>
+<p>注意：IDEA2019.1.x 最高支持Maven的3.6.0</p>
+</blockquote>
+<ul>
+<li>下载地址：<span class="exturl"><a class="exturl__link" href="http://maven.apache.org/">http://maven.apache.org/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>Maven底层使用Java语言编写的，所有需要配置JAVA_HOME环境变量及Path</li>
+<li>将Maven解压<strong>非中文无空格</strong>目录下</li>
+<li>配置<strong>MAVEN_HOME</strong>环境变量及Path</li>
+<li>输入【cmd】,进入命令行窗口，输入<strong>【mvn   -v】</strong> ，检查Maven环境是否搭建成功</li>
+</ul>
+
+        <h4 id="3-2-Maven基本配置">
+          <a href="#3-2-Maven基本配置" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-2-Maven基本配置" class="headerlink" title="3.2 Maven基本配置"></a>3.2 Maven基本配置</h4>
+      <ul>
+<li><p>Maven配置文件位置：maven根目录&#x2F;conf&#x2F;settings.xml</p>
+</li>
+<li><p>设置本地仓库【默认：C:&#x2F;用户家目录&#x2F;.m2&#x2F;repository】</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!-- localRepository</span></span><br><span class="line"><span class="comment">   | The path to the local repository maven will use to store artifacts.</span></span><br><span class="line"><span class="comment">   |</span></span><br><span class="line"><span class="comment">   | Default: $&#123;user.home&#125;/.m2/repository</span></span><br><span class="line"><span class="comment">  &lt;localRepository&gt;/path/to/local/repo&lt;/localRepository&gt;</span></span><br><span class="line"><span class="comment">  --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>E:\SG_220106\LocalRepository<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>设置阿里云镜像服务器</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- mirror</span></span><br><span class="line"><span class="comment">     | Specifies a repository mirror site to use instead of a given repository. The repository that</span></span><br><span class="line"><span class="comment">     | this mirror serves has an ID that matches the mirrorOf element of this mirror. IDs are used</span></span><br><span class="line"><span class="comment">     | for inheritance and direct lookup purposes, and must be unique across the set of mirrors.</span></span><br><span class="line"><span class="comment">     |</span></span><br><span class="line"><span class="comment">    &lt;mirror&gt;</span></span><br><span class="line"><span class="comment">      &lt;id&gt;mirrorId&lt;/id&gt;</span></span><br><span class="line"><span class="comment">      &lt;mirrorOf&gt;repositoryId&lt;/mirrorOf&gt;</span></span><br><span class="line"><span class="comment">      &lt;name&gt;Human Readable Name for this Mirror.&lt;/name&gt;</span></span><br><span class="line"><span class="comment">      &lt;url&gt;http://my.repository.com/repo/path&lt;/url&gt;</span></span><br><span class="line"><span class="comment">    &lt;/mirror&gt;</span></span><br><span class="line"><span class="comment">     --&gt;</span></span><br><span class="line">	 <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>nexus-aliyun<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Nexus aliyun<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>设置使用JDK版本【1.8|JDK8】</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>jdk-1.8<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">jdk</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">jdk</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.source</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.source</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.target</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.target</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">maven.compiler.compilerVersion</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">maven.compiler.compilerVersion</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h4 id="3-3-Maven之Helloworld">
+          <a href="#3-3-Maven之Helloworld" class="heading-link"><i class="fas fa-link"></i></a><a href="#3-3-Maven之Helloworld" class="headerlink" title="3.3 Maven之Helloworld"></a>3.3 Maven之Helloworld</h4>
+      <blockquote>
+<p>约束&gt;配置&gt;代码</p>
+</blockquote>
+<ul>
+<li><p>Maven工程目录结构约束</p>
+<ul>
+<li>项目名<ul>
+<li>src【书写源代码】<ul>
+<li>main【书写主程序代码】<ul>
+<li>java【书写java源代码】</li>
+<li>resources【书写配置文件代码】</li>
+</ul>
+</li>
+<li>test【书写测试代码】<ul>
+<li>java【书写测试代码】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pom.xml【书写Maven配置】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>测试步骤</p>
+<ul>
+<li><strong>进入项目名根目录【在根目标输入cmd即可】</strong></li>
+<li>mvn clean </li>
+<li>mvn compile</li>
+<li>mvn test-compile</li>
+<li>mvn test</li>
+<li>mvn package</li>
+<li>mvn install</li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="第四章-Maven及Idea的相关应用">
+          <a href="#第四章-Maven及Idea的相关应用" class="heading-link"><i class="fas fa-link"></i></a><a href="#第四章-Maven及Idea的相关应用" class="headerlink" title="第四章 Maven及Idea的相关应用"></a>第四章 Maven及Idea的相关应用</h3>
+      
+        <h4 id="4-1-将Maven整合到IDEA中">
+          <a href="#4-1-将Maven整合到IDEA中" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-1-将Maven整合到IDEA中" class="headerlink" title="4.1 将Maven整合到IDEA中"></a>4.1 将Maven整合到IDEA中</h4>
+      <p><img src="/2022/05/19/Maven/image-20220320104957163.png" alt="image-20220320104957163"></p>
+<p><img src="/2022/05/19/Maven/image-20220320105010404.png" alt="image-20220320105010404"></p>
+
+        <h4 id="4-2-在IDEA中新建Maven工程">
+          <a href="#4-2-在IDEA中新建Maven工程" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-2-在IDEA中新建Maven工程" class="headerlink" title="4.2 在IDEA中新建Maven工程"></a>4.2 在IDEA中新建Maven工程</h4>
+      <p><img src="/2022/05/19/Maven/image-20220320113913242.png" alt="image-20220320113913242"></p>
+<p><img src="/2022/05/19/Maven/image-20220320113928189.png" alt="image-20220320113928189"></p>
+
+        <h3 id="第五章-Maven核心概念">
+          <a href="#第五章-Maven核心概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#第五章-Maven核心概念" class="headerlink" title="第五章 Maven核心概念"></a>第五章 Maven核心概念</h3>
+      
+        <h4 id="5-1-Maven的POM">
+          <a href="#5-1-Maven的POM" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-1-Maven的POM" class="headerlink" title="5.1 Maven的POM"></a>5.1 Maven的POM</h4>
+      <ul>
+<li><p>POM全称：Project Object Model【项目对象模型】，将项目封装为对象模型，便于使用Maven管理【构建】项目</p>
+</li>
+<li><p>pom.xml常用标签</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--    设置父工程坐标--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_helloworld<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h4 id="5-2-Maven约定的目录结构">
+          <a href="#5-2-Maven约定的目录结构" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-2-Maven约定的目录结构" class="headerlink" title="5.2 Maven约定的目录结构"></a>5.2 Maven约定的目录结构</h4>
+      <ul>
+<li>项目名<ul>
+<li>src【书写java源代码】<ul>
+<li>main【书写java主程序代码】<ul>
+<li>java【书写java代码】</li>
+<li>resources【书写配置文件代码】</li>
+</ul>
+</li>
+<li>test【书写测试代码】<ul>
+<li>java【书写测试java代码】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>pom.xml【书写配置文件代码】</li>
+<li>target【编译后目录结构】</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="5-3-Maven生命周期">
+          <a href="#5-3-Maven生命周期" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-3-Maven生命周期" class="headerlink" title="5.3 Maven生命周期"></a>5.3 Maven生命周期</h4>
+      <ul>
+<li>Maven生命周期：按照顺序执行各个命令，Maven生命周期包含以下三个部分组成<ul>
+<li>Clean LifeCycle：在进行真正的构建之前进行一些清理工作。</li>
+<li><strong>Default LifeCycle：构建的核心部分，编译，测试，打包，安装，部署等等。</strong></li>
+<li>Site LifeCycle：生成项目报告，站点，发布站点。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2022/05/19/Maven/image-20220320143031010.png" alt="image-20220320143031010"></p>
+
+        <h4 id="5-4-Maven插件和目标">
+          <a href="#5-4-Maven插件和目标" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-4-Maven插件和目标" class="headerlink" title="5.4 Maven插件和目标"></a>5.4 Maven插件和目标</h4>
+      <ul>
+<li>插件：插件本质是由jar包和配置文件组成</li>
+<li>目标：每个插件都能实现多个功能，每个功能就是一个插件目标。</li>
+</ul>
+
+        <h4 id="5-5-Maven的仓库【重要】">
+          <a href="#5-5-Maven的仓库【重要】" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-5-Maven的仓库【重要】" class="headerlink" title="5.5 Maven的仓库【重要】"></a>5.5 Maven的仓库【重要】</h4>
+      <ul>
+<li>仓库分类<ul>
+<li>本地仓库：为当前计算机提供maven服务</li>
+<li>远程仓库：为其他计算机也可以提供maven服务<ul>
+<li>私服：架设在当前局域网环境下，为当前局域网范围内的所有Maven工程服务。</li>
+<li>中央仓库：架设在Internet上，为全世界所有Maven工程服务。</li>
+<li>中央仓库的镜像：架设在各个大洲，为中央仓库分担流量。减轻中央仓库的压力，同时更快的响应用户请求。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>仓库中的文件类型【jar包】<ul>
+<li>Maven的插件</li>
+<li>第三方框架或工具的jar包</li>
+<li>自己研发的项目或模块</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="5-6-Maven的坐标【重要】">
+          <a href="#5-6-Maven的坐标【重要】" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-6-Maven的坐标【重要】" class="headerlink" title="5.6 Maven的坐标【重要】"></a>5.6 Maven的坐标【重要】</h4>
+      <ul>
+<li><p><strong>作用：使用坐标引入jar包</strong></p>
+</li>
+<li><p>坐标由g-a-v组成</p>
+<p>[1]<strong>groupId</strong>：公司或组织的域名倒序+当前项目名称</p>
+<p>[2]<strong>artifactId</strong>：当前项目的模块名称</p>
+<p>[3]<strong>version</strong>：当前模块的版本</p>
+</li>
+<li><p>注意</p>
+<ul>
+<li>g-a-v：本地仓库jar包位置</li>
+<li>a-v：jar包全名</li>
+</ul>
+</li>
+<li><p>坐标应用</p>
+<ul>
+<li><p><strong>坐标参考网址：<span class="exturl"><a class="exturl__link" href="http://mvnrepository.com/">http://mvnrepository.com</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong></p>
+</li>
+<li><p>语法，示例</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework/spring-context --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.3.17<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+</li>
+</ul>
+
+        <h3 id="第六章-Maven的依赖管理">
+          <a href="#第六章-Maven的依赖管理" class="heading-link"><i class="fas fa-link"></i></a><a href="#第六章-Maven的依赖管理" class="headerlink" title="第六章 Maven的依赖管理"></a>第六章 Maven的依赖管理</h3>
+      
+        <h4 id="6-1-依赖范围">
+          <a href="#6-1-依赖范围" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-1-依赖范围" class="headerlink" title="6.1 依赖范围"></a>6.1 依赖范围</h4>
+      <ul>
+<li>依赖语法：&lt;scope&gt;<ul>
+<li>compile【默认值】：在main、test、Tomcat【服务器】下均有效。</li>
+<li>test：只能在test目录下有效<ul>
+<li>junit</li>
+</ul>
+</li>
+<li>provided：在main、test下均有效，Tomcat【服务器】无效。<ul>
+<li>servlet-api</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        <h4 id="6-2-依赖传递性">
+          <a href="#6-2-依赖传递性" class="heading-link"><i class="fas fa-link"></i></a><a href="#6-2-依赖传递性" class="headerlink" title="6.2 依赖传递性"></a>6.2 依赖传递性</h4>
+      <ul>
+<li><p><strong>路径最短者有先【就近原则】</strong></p>
+</li>
+<li><p><strong>先声明者优先</strong></p>
+</li>
+<li><p>注意：Maven可以自动解决jar包之间的依赖问题</p>
+</li>
+</ul>
+
+        <h3 id="第七章-Maven中统一管理版本号">
+          <a href="#第七章-Maven中统一管理版本号" class="heading-link"><i class="fas fa-link"></i></a><a href="#第七章-Maven中统一管理版本号" class="headerlink" title="第七章 Maven中统一管理版本号"></a>第七章 Maven中统一管理版本号</h3>
+      <ul>
+<li><p>语法</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring-version</span>&gt;</span>5.3.17<span class="tag">&lt;/<span class="name">spring-version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-beans<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring-version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h3 id="第七章-Maven的继承">
+          <a href="#第七章-Maven的继承" class="heading-link"><i class="fas fa-link"></i></a><a href="#第七章-Maven的继承" class="headerlink" title="第七章 Maven的继承"></a>第七章 Maven的继承</h3>
+      
+        <h4 id="7-1-为什么需要继承">
+          <a href="#7-1-为什么需要继承" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-1-为什么需要继承" class="headerlink" title="7.1 为什么需要继承"></a>7.1 为什么需要继承</h4>
+      <ul>
+<li>如子工程大部分都共同使用jar包，可以提取父工程中，使用【继承原理】在子工程中使用</li>
+<li>父工程打包方式，必须是pom方式</li>
+</ul>
+
+        <h4 id="7-2-Maven继承方式一">
+          <a href="#7-2-Maven继承方式一" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-2-Maven继承方式一" class="headerlink" title="7.2 Maven继承方式一"></a>7.2 Maven继承方式一</h4>
+      <ul>
+<li><p>在父工程中的pom.xml中导入jar包，在子工程中统一使用。【所有子工程强制引入父工程jar包】</p>
+</li>
+<li><p>示例代码</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h4 id="7-3-Maven继承方式二">
+          <a href="#7-3-Maven继承方式二" class="heading-link"><i class="fas fa-link"></i></a><a href="#7-3-Maven继承方式二" class="headerlink" title="7.3 Maven继承方式二"></a>7.3 Maven继承方式二</h4>
+      <ul>
+<li><p>在父工程中导入jar包【pom.xml】</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p>在子工程引入父工程的相关jar包</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven_demo<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.atguigu<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">relativePath</span>&gt;</span>../pom.xml<span class="tag">&lt;/<span class="name">relativePath</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></div></figure>
+</li>
+<li><p><strong>注意：在子工程中，不能指定版本号</strong></p>
+</li>
+</ul>
+
+        <h3 id="第八章-Maven的聚合">
+          <a href="#第八章-Maven的聚合" class="heading-link"><i class="fas fa-link"></i></a><a href="#第八章-Maven的聚合" class="headerlink" title="第八章 Maven的聚合"></a>第八章 Maven的聚合</h3>
+      <ul>
+<li><p>为什么使用Maven的聚合</p>
+<ul>
+<li>优势：只要将子工程聚合到父工程中，就可以实现效果：安装或清除父工程时，子工程会进行同步操作。</li>
+<li>注意：Maven会按照依赖顺序自动安装子工程</li>
+</ul>
+</li>
+<li><p>语法</p>
+<figure class="highlight xml"><div class="table-container"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">modules</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>maven_helloworld<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>HelloFriend<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">module</span>&gt;</span>MakeFriend<span class="tag">&lt;/<span class="name">module</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">modules</span>&gt;</span></span><br></pre></td></tr></table></div></figure></li>
+</ul>
+
+        <h3 id="练习时间：">
+          <a href="#练习时间：" class="heading-link"><i class="fas fa-link"></i></a><a href="#练习时间：" class="headerlink" title="练习时间："></a>练习时间：</h3>
+      <ol>
+<li>Maven坐标&amp;依赖</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Maven</category>
+      </categories>
+      <tags>
+        <tag>Maven</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我的第一篇Blog</title>
     <url>/2022/05/17/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87Blog/</url>
     <content><![CDATA[
