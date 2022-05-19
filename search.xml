@@ -14,7 +14,9 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
 
 <hr>
 <p><sub>Check out my <span class="exturl"><a class="exturl__link" href="http://kamranahmed.info/">blog</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> and say “hi” on <span class="exturl"><a class="exturl__link" href="https://twitter.com/kamranahmedse">Twitter</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>.</sub></p>
+<span id="more"></span>
 
+<h3 id><a href="#" class="headerlink" title></a></h3>
         <h1 id="Introduction">
           <a href="#Introduction" class="heading-link"><i class="fas fa-link"></i></a><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1>
       <p>Design patterns are solutions to recurring problems; <strong>guidelines on how to tackle certain problems</strong>. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations.</p>
