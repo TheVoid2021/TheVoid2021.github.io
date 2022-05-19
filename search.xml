@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Design-patterns</title>
-    <url>/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Design-patterns/</url>
+    <url>/2022/05/19/Design-patterns/</url>
     <content><![CDATA[<p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Design-patterns/TheVoid2021.github.io.git/Design-patterns%5C1b7e5938-f515-11e6-8dd3-d0d58de6bb9a-16529532644841-16529532685232.png" alt="Design Patterns For Humans"></p>
 <p align="center">
 🎉 Ultra-simplified explanation to design patterns! 🎉
@@ -759,7 +759,7 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
   </entry>
   <entry>
     <title>Mybatis</title>
-    <url>/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Mybatis/</url>
+    <url>/2022/05/19/Mybatis/</url>
     <content><![CDATA[
         <h3 id="第一章-初识Mybatis">
           <a href="#第一章-初识Mybatis" class="heading-link"><i class="fas fa-link"></i></a><a href="#第一章-初识Mybatis" class="headerlink" title="第一章 初识Mybatis"></a>第一章 初识Mybatis</h3>
@@ -1600,7 +1600,7 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
   </entry>
   <entry>
     <title>Maven</title>
-    <url>/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/</url>
+    <url>/2022/05/19/Maven/</url>
     <content><![CDATA[
         <h3 id="回顾：JavaSE-JavaWeb-SSM阶段-高级-项目阶段-…">
           <a href="#回顾：JavaSE-JavaWeb-SSM阶段-高级-项目阶段-…" class="heading-link"><i class="fas fa-link"></i></a><a href="#回顾：JavaSE-JavaWeb-SSM阶段-高级-项目阶段-…" class="headerlink" title="回顾：JavaSE   JavaWeb   SSM阶段   高级   项目阶段 …."></a>回顾：JavaSE   JavaWeb   SSM阶段   高级   项目阶段 ….</h3>
@@ -1952,7 +1952,7 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
   </entry>
   <entry>
     <title>我的第一篇Blog</title>
-    <url>/thevoid2022/TheVoid2021.github.io.git/2022/05/17/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87Blog/</url>
+    <url>/2022/05/17/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87Blog/</url>
     <content><![CDATA[
         <h1 id="C-基础入门">
           <a href="#C-基础入门" class="heading-link"><i class="fas fa-link"></i></a><a href="#C-基础入门" class="headerlink" title="C++基础入门"></a>C++基础入门</h1>
@@ -3988,7 +3988,7 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
   </entry>
   <entry>
     <title>Hello World</title>
-    <url>/thevoid2022/TheVoid2021.github.io.git/2022/05/15/hello-world/</url>
+    <url>/2022/05/15/hello-world/</url>
     <content><![CDATA[<p>Welcome to <span class="exturl"><a class="exturl__link" href="https://hexo.io/">Hexo</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>! This is your very first post. Check <span class="exturl"><a class="exturl__link" href="https://hexo.io/docs/">documentation</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> for more info. If you get any problems when using Hexo, you can find the answer in <span class="exturl"><a class="exturl__link" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> or you can ask me on <span class="exturl"><a class="exturl__link" href="https://github.com/hexojs/hexo/issues">GitHub</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>.</p>
 
         <h2 id="Quick-Start">
