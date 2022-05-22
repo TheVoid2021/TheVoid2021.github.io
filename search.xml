@@ -1644,7 +1644,7 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
 <li>使用Maven之前，将jar复制到项目工程中，jar包添加到项目中，相对浪费存储空间</li>
 <li>使用Maven之后，jar包统一存储Maven本地仓库，使用坐标方式将jar包从仓库引入到项目中</li>
 </ul>
-<p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/TheVoid2021.github.io.git/Maven/image-20220320091431579.png" alt="image-20220320091431579"></p>
+<p><img src="/2022/05/19/Maven/image-20220320091431579.png" alt="image-20220320091431579"></p>
 </li>
 <li><p>使用Maven便于解决jar包<strong>冲突及依赖</strong>问题</p>
 </li>
@@ -1746,13 +1746,13 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
       
         <h4 id="4-1-将Maven整合到IDEA中">
           <a href="#4-1-将Maven整合到IDEA中" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-1-将Maven整合到IDEA中" class="headerlink" title="4.1 将Maven整合到IDEA中"></a>4.1 将Maven整合到IDEA中</h4>
-      <p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/TheVoid2021.github.io.git/Maven/image-20220320104957163.png" alt="image-20220320104957163"></p>
-<p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/TheVoid2021.github.io.git/Maven/image-20220320105010404.png" alt="image-20220320105010404"></p>
+      <p><img src="/2022/05/19/Maven/image-20220320104957163.png" alt="image-20220320104957163"></p>
+<p><img src="/2022/05/19/Maven/image-20220320105010404.png" alt="image-20220320105010404"></p>
 
         <h4 id="4-2-在IDEA中新建Maven工程">
           <a href="#4-2-在IDEA中新建Maven工程" class="heading-link"><i class="fas fa-link"></i></a><a href="#4-2-在IDEA中新建Maven工程" class="headerlink" title="4.2 在IDEA中新建Maven工程"></a>4.2 在IDEA中新建Maven工程</h4>
-      <p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/TheVoid2021.github.io.git/Maven/image-20220320113913242.png" alt="image-20220320113913242"></p>
-<p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/TheVoid2021.github.io.git/Maven/image-20220320113928189.png" alt="image-20220320113928189"></p>
+      <p><img src="/2022/05/19/Maven/image-20220320113913242.png" alt="image-20220320113913242"></p>
+<p><img src="/2022/05/19/Maven/image-20220320113928189.png" alt="image-20220320113928189"></p>
 
         <h3 id="第五章-Maven核心概念">
           <a href="#第五章-Maven核心概念" class="heading-link"><i class="fas fa-link"></i></a><a href="#第五章-Maven核心概念" class="headerlink" title="第五章 Maven核心概念"></a>第五章 Maven核心概念</h3>
@@ -1798,7 +1798,7 @@ A topic that can easily make anyone's mind wobble. Here I try to make them stick
 </ul>
 </li>
 </ul>
-<p><img src="/thevoid2022/TheVoid2021.github.io.git/thevoid2022/TheVoid2021.github.io.git/2022/05/19/Maven/TheVoid2021.github.io.git/Maven/image-20220320143031010.png" alt="image-20220320143031010"></p>
+<p><img src="/2022/05/19/Maven/image-20220320143031010.png" alt="image-20220320143031010"></p>
 
         <h4 id="5-4-Maven插件和目标">
           <a href="#5-4-Maven插件和目标" class="heading-link"><i class="fas fa-link"></i></a><a href="#5-4-Maven插件和目标" class="headerlink" title="5.4 Maven插件和目标"></a>5.4 Maven插件和目标</h4>
