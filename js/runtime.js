@@ -15,7 +15,7 @@ function createDateTime() {
   const isWorkingHours = totalHours >= 9 && totalHours < 18;
 
   const htmlContent = `
-      ${isWorkingHours ? `<img class='boardsign' src='/source/img/1.jpg' title='什么时候能够实现财富自由啊！'>` : `<img class='boardsign' src='/source/img/1.jpg' title='下班了就该开开心心地玩耍~'>`}
+      ${isWorkingHours ? `<img class='boardsign' src='/img/3.png' title='什么时候能够实现财富自由啊！'>` : `<img class='boardsign' src='/img/3.png' title='下班了就该开开心心地玩耍~'>`}
       <br>
       <div style="font-size:13px;font-weight:bold">
           本站居然运行了 ${totalDays} 天 ${totalHours.toString().padStart(2, '0')} 小时 ${totalMinutes.toString().padStart(2, '0')} 分 ${totalSecondsLeft.toString().padStart(2, '0')} 秒 
